@@ -15,9 +15,15 @@ This project validates that enterprise security is strengthened not only through
 
 Task 7 marked the transition from executing security assessments to validating whether an enterprise Security Operations Center (SOC) can detect, investigate, and respond to real-world attack activity. The objective was not simply to perform offensive techniques, but to confirm that defensive controls generated meaningful telemetry across the network, Active Directory, and Windows Security logs.
 
-Throughout this phase, I simulated multiple stages of the cyber attack lifecycle within a controlled Active Directory environment. Activities included network reconnaissance using Nmap, LDAP enumeration, Active Directory relationship mapping with BloodHound, Kerberos ticket requests, Kerberoasting against a dedicated service account, WinRM-based remote administration, SMB SYSVOL enumeration, and packet-level validation using Wireshark. Every activity was correlated with Windows Security Event Logs in Splunk Enterprise and mapped to the MITRE ATT&CK framework to validate enterprise detection coverage.
+Throughout this phase, I simulated multiple stages of the cyber attack lifecycle within a controlled Active Directory environment. 
 
-From a Detection Engineering perspective, this exercise demonstrates how security teams transform offensive techniques into actionable detections. Rather than focusing solely on prevention, modern SOC operations prioritize visibility, alerting, investigation, and continuous improvement. By validating authentication events, service ticket requests, remote management sessions, file share access, and reconnaissance activities, I confirmed that defensive telemetry accurately reflected each stage of the simulated attack chain.
+Activities included network reconnaissance using Nmap, LDAP enumeration, Active Directory relationship mapping with BloodHound, Kerberos ticket requests, Kerberoasting against a dedicated service account, WinRM-based remote administration, SMB SYSVOL enumeration, and packet-level validation using Wireshark. 
+
+Every activity was correlated with Windows Security Event Logs in Splunk Enterprise and mapped to the MITRE ATT&CK framework to validate enterprise detection coverage.
+
+From a Detection Engineering perspective, this exercise demonstrates how security teams transform offensive techniques into actionable detections. Rather than focusing solely on prevention, modern SOC operations prioritize visibility, alerting, investigation, and continuous improvement. 
+
+By validating authentication events, service ticket requests, remote management sessions, file share access, and reconnaissance activities, I confirmed that defensive telemetry accurately reflected each stage of the simulated attack chain.
 
 The project also reinforced the importance of Purple Team collaboration, where offensive security activities directly improve defensive monitoring. Each validated event contributes to stronger detection content, more effective investigation playbooks, and measurable improvements in enterprise security maturity.
 
@@ -53,7 +59,7 @@ This project demonstrates practical experience in validating whether enterprise 
 
 Detection engineering transforms raw security telemetry into meaningful alerts that enable analysts to identify malicious behavior before significant business impact occurs.
 
-The ability to validate telemetry across:
+# The ability to validate telemetry across:
 
 * Active Directory
 * Windows Security Logs
@@ -67,7 +73,7 @@ is a core requirement across modern enterprise environments and cloud-connected 
 
 Throughout Domain 2, an enterprise Active Directory environment was constructed and used to simulate realistic adversary behavior across the Cyber Kill Chain. Each action was intentionally performed to generate authentic security telemetry that could be validated in Splunk Enterprise and correlated with packet-level evidence captured in Wireshark.
 
-The assessment covered the complete detection lifecycle:
+# The assessment covered the complete detection lifecycle:
 
 Network reconnaissance
 Active Directory enumeration
@@ -83,72 +89,74 @@ MITRE ATT&CK mapping
 Purple Team detection validation
 Enterprise Objectives
 
-This project was designed to answer key enterprise security questions:
+# This project was designed to answer key enterprise security questions:
 
-Can reconnaissance activity be identified?
-Are authentication events fully logged?
-Can Kerberos abuse be detected?
-Does remote administration generate sufficient telemetry?
-Can SMB enumeration be investigated?
-Does packet-level evidence align with Windows Event Logs?
-Can SOC analysts correlate attacker activity across multiple telemetry sources?
-Technologies Used
-Windows Server 2019
-Active Directory Domain Services
-Kali Linux
-Splunk Enterprise
-Sysmon
-Wireshark
-Nmap
-BloodHound
-BloodHound.py
-Impacket
-John the Ripper
-Evil-WinRM
-SMBClient
-RPCClient
-PowerShell
-Detection Engineering Validation
+**Can reconnaissance activity be identified?**
+**Are authentication events fully logged?**
+**Can Kerberos abuse be detected?**
+**Does remote administration generate sufficient telemetry?**
+**Does packet-level evidence align with Windows Event Logs?**
+**Can SOC analysts correlate attacker activity across multiple telemetry sources?**
+
+# Technologies Used
+
+- Windows Server 2019
+- Active Directory Domain Services
+- Kali Linux
+- Splunk Enterprise
+- Sysmon
+- Wireshark
+- Nmap
+- BloodHound
+- BloodHound.py
+- Impacket
+- John the Ripper
+- Evil-WinRM
+- SMBClient
+- RPCClient
+- PowerShell
+
+# Detection Engineering Validation
+
 Reconnaissance Detection
-
 Enterprise reconnaissance was simulated using Nmap service and operating system discovery scans.
 
-Validated detections included:
+# Validated detections included:
 
-Network Service Discovery
-TCP service enumeration
-Port scanning activity
-Host fingerprinting
+- Network Service Discovery
+- TCP service enumeration
+- Port scanning activity
+- Host fingerprinting
 
-MITRE ATT&CK
+# MITRE ATT&CK
 
 T1046 — Network Service Discovery
 Active Directory Enumeration
 
 Directory reconnaissance was performed using BloodHound and BloodHound.py to enumerate users, groups, computers, organizational units, and attack paths.
 
-Validated detections included:
+# Validated detections included:
 
 LDAP queries
 Account discovery
 Domain object enumeration
 Directory service access
 
-MITRE ATT&CK
+# MITRE ATT&CK
 
 T1087 — Account Discovery
 T1482 — Domain Trust Discovery
 T1018 — Remote System Discovery
 Kerberos Authentication Validation
 
-Enterprise authentication activity generated:
+# Enterprise authentication activity generated:
 
 Ticket Granting Ticket (TGT) requests
 Service Ticket (TGS) requests
 Successful logons
 Administrative logons
 
-Validated Windows Security Events:
+# Validated Windows Security Events:
 
 Event ID 4624
 Event ID 4648
@@ -157,31 +165,32 @@ Event ID 4768
 Event ID 4769
 Event ID 4776
 
-MITRE ATT&CK
+# MITRE ATT&CK
 
 T1558
 T1078
-Kerberoasting Detection
+
+# Kerberoasting Detection
 
 A service account was configured with a Service Principal Name (SPN), after which Impacket was used to request a Kerberos Service Ticket.
 
 The extracted Kerberos ticket was subsequently audited offline using John the Ripper to validate password auditing workflows and demonstrate the risk associated with weak service account credentials.
 
-Detection validation confirmed:
+# Detection validation confirmed:
 
 Kerberos Service Ticket requests
 Service account visibility
 Offline password auditing workflow
 Detection opportunities for Kerberoasting activity
 
-MITRE ATT&CK
+# MITRE ATT&CK
 
 T1558.003 — Kerberoasting
 Lateral Movement Validation
 
 Enterprise administrative protocols were validated using native Windows management technologies.
 
-Protocols validated:
+# Protocols validated:
 
 WinRM
 SMB
@@ -189,15 +198,16 @@ RPC
 SYSVOL
 NETLOGON
 
-MITRE ATT&CK
+# MITRE ATT&CK
 
 T1021.006 — Windows Remote Management
 T1021.002 — SMB/Windows Admin Shares
 Splunk Detection Library
 
-The following Windows Security Events were successfully validated during the assessment:
+**The following Windows Security Events were successfully validated during the assessment:**
 
 Event ID	Detection Purpose
+
 4624	Successful Logon
 4625	Failed Logon
 4648	Explicit Credentials
@@ -213,7 +223,7 @@ Event ID	Detection Purpose
 
 These detections demonstrated that enterprise telemetry accurately reflected every stage of the simulated attack lifecycle.
 
-Wireshark Validation
+# Wireshark Validation
 
 Packet captures confirmed visibility into enterprise network protocols, including:
 
@@ -225,7 +235,7 @@ WinRM (HTTP/5985)
 DNS
 TCP session establishment
 
-The captured traffic was correlated directly with Windows Security Events to validate end-to-end detection capabilities.
+# The captured traffic was correlated directly with Windows Security Events to validate end-to-end detection capabilities.
 
 MITRE ATT&CK Mapping
 Activity	Technique
@@ -240,7 +250,7 @@ WinRM	T1021.006
 SMB Shares	T1021.002
 Purple Team Validation
 
-This assessment demonstrated the complete Purple Team lifecycle by validating:
+# This assessment demonstrated the complete Purple Team lifecycle by validating:
 
 Offensive simulation
 Telemetry generation
@@ -253,7 +263,8 @@ SOC investigation readiness
 
 Every offensive action was intentionally correlated with defensive evidence, enabling repeatable validation of enterprise detection capabilities.
 
-Skills Demonstrated
+# Skills Demonstrated
+
 Detection Engineering
 Purple Team Operations
 Threat Detection
@@ -405,7 +416,7 @@ This task produced a complete enterprise detection package including:
 
 ---
 
-# Executive Summary
+# Author's Summary
 
 Task 7 demonstrates an end-to-end enterprise detection engineering workflow, beginning with reconnaissance and progressing through Active Directory enumeration, authentication, credential access, and lateral movement. Every stage of the simulated attack chain was validated using Windows Security Event Logs, packet captures, and Splunk Enterprise searches, confirming that defensive controls produced actionable telemetry aligned with the MITRE ATT&CK framework.
 
@@ -463,7 +474,7 @@ end-to-end visibility across network telemetry, authentication events, packet ca
 mapping.
 
 
-Author
+# Author
 
 BASSEY SOLOMON HENRY
 
@@ -471,7 +482,7 @@ Cybersecurity Engineer | SOC Analyst | Detection Engineer | Purple Team | Active
 
 Passionate about building enterprise-scale security labs that simulate real-world adversary techniques while strengthening detection engineering, threat hunting, and defensive operations.
 
-Connect With Me
+# Connect With Me
 
 💼 LinkedIn: https://www.linkedin.com/in/bassey-solomon-henry/
 
@@ -482,5 +493,3 @@ Tech Stack & GitHub Analytics
 "Security is not measured by preventing every attack. It is measured by understanding systems deeply enough to detect, investigate, and continuously improve against evolving threats."
 
 — Solomon Henry
-
-# Author: Bassey Solomon Henry
